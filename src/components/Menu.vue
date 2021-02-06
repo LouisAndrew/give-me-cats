@@ -1,11 +1,33 @@
 <template>
-    <h1>Main</h1>
+    <div class="menu">
+        <h1 v-bind:class="classes.heading">Hey there! 👋</h1>
+        <p v-bind:class="classes.text">
+            Click one of the button below to continue!
+        </p>
+    </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+// eslint-disable-next-line no-unused-vars
+import { Classes } from '@/types';
+
+const MenuProps = Vue.extend({
+    props: {
+        classes: {
+            type: Object as () => Classes,
+        },
+    },
+});
+
 @Component
-export default class App extends Vue {}
+export default class Menu extends MenuProps {
+    created() {
+        console.log(this.classes);
+    }
+}
 </script>
 
 <style scoped></style>

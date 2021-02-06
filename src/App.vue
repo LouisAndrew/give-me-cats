@@ -1,10 +1,11 @@
 <template>
-    <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png" />
-        <h1>Test</h1>
-        <Menu v-if="appState === States.MAIN" />
-        <Pics v-if="appState === States.PICS" />
-        <Gifs v-else-if="appState === States.GIFS" />
+    <div
+        id="app"
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    >
+        <Menu v-if="appState === States.MAIN" v-bind:classes="classes" />
+        <Pics v-if="appState === States.PICS" v-bind:classes="classes" />
+        <Gifs v-else-if="appState === States.GIFS" v-bind:classes="classes" />
 
         <button v-if="appState !== States.MAIN" @click="goToMain">
             Go to main
@@ -19,12 +20,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
 import Menu from './components/Menu.vue';
 import Pics from './components/Pics.vue';
 import Gifs from './components/Gifs.vue';
 import { AppStates } from './enums';
+
+import './assets/styles/index.css'; // import tailwind library
 
 @Component({
     components: {
@@ -36,6 +40,10 @@ import { AppStates } from './enums';
 export default class App extends Vue {
     private States = AppStates;
     appState: AppStates = this.States.MAIN;
+    classes = {
+        heading: 'text-3xl font-bold tracking-wider',
+        text: 'mt-4 text-gray-500 tracking-wider',
+    };
 
     goToMain() {
         this.appState = this.States.MAIN;
