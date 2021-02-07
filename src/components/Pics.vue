@@ -7,12 +7,13 @@
         <div class="cat-img">
             <Content
                 :setPicsCount="setPicsCount"
-                :onClick="fetchImg"
+                @click="fetchImg"
                 :urls="urls"
                 :count="picsCount"
                 contentType="PIC"
                 v-if="!isLoading"
             />
+            <Loading v-else-if="isLoading" />
         </div>
     </div>
 </template>
@@ -25,6 +26,7 @@ import axios from 'axios';
 // eslint-disable-next-line no-unused-vars
 import { Classes } from '@/types';
 import Content from './Content.vue';
+import Loading from './Loading.vue';
 
 const PicsProps = Vue.extend({
     props: {
@@ -35,11 +37,12 @@ const PicsProps = Vue.extend({
 @Component({
     components: {
         Content,
+        Loading,
     },
 })
 export default class Pics extends PicsProps {
     endpoint = process.env.VUE_APP__ENDPOINT;
-    isLoading = false;
+    isLoading = true;
     urls: string[] = [];
     picsCount = 1;
 

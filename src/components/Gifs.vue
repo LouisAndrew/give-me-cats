@@ -5,12 +5,13 @@
         <div class="cat-img">
             <Content
                 :setPicsCount="setGifsCount"
-                :onClick="fetchGifs"
+                @click="fetchGifs"
                 :urls="urls"
                 :count="gifsCount"
                 contentType="GIF"
                 v-if="!isLoading"
             />
+            <Loading v-else-if="isLoading" />
         </div>
     </div>
 </template>
@@ -23,6 +24,7 @@ import axios from 'axios';
 // eslint-disable-next-line no-unused-vars
 import { Classes } from '@/types';
 import Content from './Content.vue';
+import Loading from './Loading.vue';
 
 const GifsProps = Vue.extend({
     props: {
@@ -30,13 +32,14 @@ const GifsProps = Vue.extend({
     },
     components: {
         Content,
+        Loading,
     },
 });
 
 @Component
 export default class Gifs extends GifsProps {
     endpoint = process.env.VUE_APP__ENDPOINT;
-    isLoading = false;
+    isLoading = true;
     urls: string[] = [];
     gifsCount = 1;
 
