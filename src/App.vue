@@ -1,21 +1,40 @@
 <template>
     <div
         id="app"
-        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        class="flex items-start justify-center h-screen flex-nowrap pt-6"
     >
-        <Menu v-if="appState === States.MAIN" v-bind:classes="classes" />
-        <Pics v-if="appState === States.PICS" v-bind:classes="classes" />
-        <Gifs v-else-if="appState === States.GIFS" v-bind:classes="classes" />
+        <div class="wrapper h-content">
+            <Menu v-if="appState === States.MAIN" v-bind:classes="classes" />
+            <Pics v-if="appState === States.PICS" v-bind:classes="classes" />
+            <Gifs
+                v-else-if="appState === States.GIFS"
+                v-bind:classes="classes"
+            />
 
-        <button v-if="appState !== States.MAIN" @click="goToMain">
-            Go to main
-        </button>
-        <button v-if="appState !== States.PICS" @click="goToPics">
-            Go to pics
-        </button>
-        <button v-if="appState !== States.GIFS" @click="goToGifs">
-            Go to gifs
-        </button>
+            <div class="buttons flex w-full justify-evenly mt-3">
+                <button
+                    :class="buttonClass"
+                    v-if="appState !== States.MAIN"
+                    @click="goToMain"
+                >
+                    Go to main
+                </button>
+                <button
+                    :class="buttonClass"
+                    v-if="appState !== States.PICS"
+                    @click="goToPics"
+                >
+                    Go to pics
+                </button>
+                <button
+                    :class="buttonClass"
+                    v-if="appState !== States.GIFS"
+                    @click="goToGifs"
+                >
+                    Go to gifs
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -41,9 +60,14 @@ export default class App extends Vue {
     private States = AppStates;
     appState: AppStates = this.States.MAIN;
     classes = {
-        heading: 'text-3xl font-bold tracking-wider',
-        text: 'mt-4 text-gray-500 tracking-wider',
+        heading:
+            'text-3xl font-bold tracking-wider font-sans whitespace-nowrap flex-shrink-0 text-center',
+        text:
+            'mt-4 text-gray-500 tracking-wider font-sans flex-shrink-0 text-center',
     };
+
+    buttonClass =
+        'px-4 py-3 bg-green-100 text-sm font-bold text-green-500 rounded-xl w-full mx-1 transition duration-200 hover:bg-green-400 hover:text-white';
 
     goToMain() {
         this.appState = this.States.MAIN;
@@ -61,11 +85,5 @@ export default class App extends Vue {
 
 <style>
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
 }
 </style>

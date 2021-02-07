@@ -1,12 +1,18 @@
 <template>
-    <div class="pics">
+    <div class="pics flex flex-col items-center">
         <h1 v-bind:class="classes.heading">Cute cat pics 📷</h1>
         <p v-bind:class="classes.text">
             Click one of the button below to continue!
         </p>
         <div class="cat-img">
-            <img v-if="!isLoading" v-bind:src="url" alt="" />
-            <button @click="fetchImg">Fetch</button>
+            <Content
+                :setPicsCount="setPicsCount"
+                :onClick="fetchImg"
+                :urls="urls"
+                :count="picsCount"
+                contentType="PIC"
+                v-if="!isLoading"
+            />
         </div>
     </div>
 </template>
@@ -18,6 +24,7 @@ import axios from 'axios';
 
 // eslint-disable-next-line no-unused-vars
 import { Classes } from '@/types';
+import Content from './Content.vue';
 
 const PicsProps = Vue.extend({
     props: {
@@ -25,27 +32,39 @@ const PicsProps = Vue.extend({
     },
 });
 
-@Component
+@Component({
+    components: {
+        Content,
+    },
+})
 export default class Pics extends PicsProps {
     endpoint = process.env.VUE_APP__ENDPOINT;
     isLoading = false;
-    url = '';
+    urls: string[] = [];
+    picsCount = 1;
 
     created() {
         this.fetchImg();
     }
 
+    setPicsCount(count: number) {
+        this.picsCount = count;
+    }
+
     async fetchImg() {
         this.isLoading = true;
-        console.log(process.env.VUE_APP_API_KEY);
         try {
-            const res = await axios(`${this.endpoint}?mime_types=png`, {
-                headers: {
-                    'x-api-key': process.env.VUE_APP_API_KEY,
-                },
-            });
+            const res = await axios(
+                `${this.endpoint}?mime_types=png&limit=${this.picsCount}`,
+                {
+                    headers: {
+                        'x-api-key': process.env.VUE_APP_API_KEY,
+                    },
+                }
+            );
             const { data } = await res;
-            this.url = await data[0].url;
+
+            this.urls = await data.map((dt: { url: string }) => dt.url);
         } catch (e) {
             console.error(e);
         } finally {

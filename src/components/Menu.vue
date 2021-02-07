@@ -23,11 +23,7 @@ const MenuProps = Vue.extend({
 });
 
 @Component
-export default class Menu extends MenuProps {
-    created() {
-        console.log(this.classes);
-    }
-}
+export default class Menu extends MenuProps {}
 </script>
 
 <style scoped></style>
