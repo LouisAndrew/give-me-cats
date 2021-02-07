@@ -17,21 +17,21 @@
                     v-if="appState !== States.MAIN"
                     @click="goToMain"
                 >
-                    Go to main
+                    Main screen
                 </button>
                 <button
                     :class="buttonClass"
                     v-if="appState !== States.PICS"
                     @click="goToPics"
                 >
-                    Go to pics
+                    Pics
                 </button>
                 <button
                     :class="buttonClass"
                     v-if="appState !== States.GIFS"
                     @click="goToGifs"
                 >
-                    Go to gifs
+                    Gifs
                 </button>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <div class="pics flex flex-col items-center">
         <h1 v-bind:class="classes.heading">Cute cat pics 📷</h1>
         <p v-bind:class="classes.text">
-            Click one of the button below to continue!
+            Click to enjoy some random cat images
         </p>
         <div class="cat-img">
             <Content

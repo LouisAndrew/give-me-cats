@@ -1,9 +1,7 @@
 <template>
     <div class="gifs">
         <h1 v-bind:class="classes.heading">Cute cat gifs 📹</h1>
-        <p v-bind:class="classes.text">
-            Click one of the button below to continue!
-        </p>
+        <p v-bind:class="classes.text">Click to enjoy random cat gifs.</p>
         <div class="cat-img">
             <Content
                 :setPicsCount="setGifsCount"
