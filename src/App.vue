@@ -1,7 +1,7 @@
 <template>
     <div
         id="app"
-        class="flex items-start justify-center h-screen flex-nowrap pt-6"
+        class="flex items-start justify-center h-screen flex-nowrap py-6"
     >
         <div class="wrapper h-content">
             <Menu v-if="appState === States.MAIN" v-bind:classes="classes" />

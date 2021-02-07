@@ -13,9 +13,7 @@
             Now showing:
             <input
                 :class="
-                    `transition duration-200 inline-block w-5 text-center border-b-4 border-solid bg-transparent border-${
-                        limitPassed ? 'red' : 'green'
-                    }-500`
+                    `transition duration-200 inline-block w-5 text-center border-b-4 border-solid bg-transparent ${borderClass}`
                 "
                 type="number"
                 :value="num"
@@ -58,6 +56,10 @@ export default class Content extends Vue {
 
     get nowShowing() {
         return this.contentType === 'GIF' ? 'gifs' : 'pics';
+    }
+
+    get borderClass() {
+        return this.limitPassed ? 'border-red-500' : 'border-green-500';
     }
 
     handleClick() {
