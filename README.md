@@ -1,5 +1,7 @@
 # give-me-cats
 
+Hidden stuff
+
 ## Project setup
 ```
 yarn install
